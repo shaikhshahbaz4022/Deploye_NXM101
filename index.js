@@ -8,6 +8,7 @@ const ShoesRoute = require('./routes/shoesRoute');
 const cartRoute = require('./routes/cartRoute');
 const auth = require('./middleware/auth');
 const duplicate = require('./middleware/duplicate');
+const AdminRoute = require('./routes/AdminRoutes');
 require("dotenv").config()
 
 
@@ -18,6 +19,7 @@ app.use(cors())
 /////////
 app.use("/users", userRouter)
 ////////
+
 app.use("/jeans", jeansRouter)
 ////////
 app.use("/tops", topsRoute)
@@ -25,11 +27,14 @@ app.use("/tops", topsRoute)
 app.use("/shoes", ShoesRoute)
 
 ///////
-app.use(duplicate)
+// app.use(duplicate)
 app.use(auth)
 app.use("/cart",cartRoute)
+app.use("/admin",AdminRoute)
 ///////
-
+app.get("/",(req,res)=>{
+    res.send("Welcome to ShopVibe Backend HomePage")
+})
 app.listen(process.env.PORT, async () => {
     try {
         await connection
